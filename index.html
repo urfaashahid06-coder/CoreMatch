@@ -12,8 +12,9 @@
 
 <nav hidden>
  <a class="brand" href="#landing"><img data-logo width="44" alt="CoreMatch logo">CoreMatch</a>
- <div class="links"><a href="#landing">About Us</a><a href="#home">Home</a><a href="#discover">Discover</a><a href="#messages">Messages</a><a href="#setup">Profile</a></div>
- <a href="#setup" class="av" id="navav" aria-label="Profile">Y</a>
+ <div class="links"><a href="#landing">About Us</a><a href="#home">Home</a><a href="#discover">Discover</a><a href="#messages">Messages</a></div>
+ <button class="ib" id="navsearch" aria-label="Search builders"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+ <a href="#setup" class="av" id="navav" aria-label="My profile">Y</a>
 </nav>
 
 
@@ -79,6 +80,7 @@
 <!-- PROFILE SETUP -->
 <section data-v="setup" class="wrap" style="max-width:720px"><div class="panel">
  <h2>Set up your profile</h2><p class="mut" style="margin-top:-8px">Matches are scored from what you bring and what you need.</p>
+ <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px"><span class="av" id="p-prev" style="width:72px;height:72px;font-size:26px;background-color:var(--mint)"></span><label class="btn ghost" style="padding:9px 18px;cursor:pointer;font-size:14px">Upload photo<input type="file" id="p-pic" accept="image/*" hidden></label></div>
  <label class="lab" for="p-name">Full name</label><input class="field" id="p-name" placeholder="Your name">
  <label class="lab" for="p-city">City</label><select class="field" id="p-city"></select>
  <label class="lab">I bring</label><div class="tags" id="p-b" style="margin-bottom:16px"></div>
