@@ -1,51 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-        <title>CoreMatch</title>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/style.css"> 
-    </head>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CoreMatch</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
 <body>
 <canvas id="rain" aria-hidden="true"></canvas>
 
 <nav hidden>
-    <a class="brand" href="#landing">
-        <img data-logo width="44" alt="CoreMatch logo">CoreMatch
-    </a>
-
-    <div class="links">
-        <a href="#landing">
-            About Us
-        </a>
-        <a href="#home">
-            Home
-        </a>
-        <a href="#discover">
-            Discover
-        </a>
-        <a href="#messages">
-            Messages
-        </a>
-        <a href="#setup">
-            Profile
-        </a>
-    </div>
-
-    <a href="#setup" class="av" id="navav" aria-label="Profile">
-        Y
-    </a>
+ <a class="brand" href="#landing"><img data-logo width="44" alt="CoreMatch logo">CoreMatch</a>
+ <div class="links"><a href="#landing">About Us</a><a href="#home">Home</a><a href="#discover">Discover</a><a href="#messages">Messages</a><a href="#setup">Profile</a></div>
+ <a href="#setup" class="av" id="navav" aria-label="Profile">Y</a>
 </nav>
 
 
 <main>
 <!-- LOADING -->
-<section data-v="loading" class="load">
-    <img data-logo width="150" alt="CoreMatch logo">
-    <b style="font-size:24px">
-        CoreMatch
-    </b><div class="bar"><i></i></div></section>
+<section data-v="loading" class="load"><img data-logo width="150" alt="CoreMatch logo"><b style="font-size:24px">CoreMatch</b><div class="bar"><i></i></div></section>
 
 <!-- LANDING -->
 <section data-v="landing" class="wrap">
@@ -66,6 +40,12 @@
  <div class="about" style="margin-top:80px">
   <div class="term">&gt;_<br>skill based matching</div>
   <div><h2>What CoreMatch is about</h2><p class="mut" style="max-width:52ch">Great projects rarely happen alone. They start when the right minds meet. CoreMatch connects developers, designers and creators across Pakistan who share the same creative wavelength and bring complementary skills. Whether you’re building a hackathon MVP, a final-year project or the next big startup, we help you find the co-builder who brings your vision to life.</p></div>
+ </div>
+ <h2 style="text-align:center;margin-top:80px">Free to collaborate. Safe by design.</h2>
+ <div class="steps">
+  <div class="panel"><h3>Free collaborations</h3><p class="mut">Tech with marketing, idea with builder. No money involved, and both names are credited.</p></div>
+  <div class="panel"><h3>Credit you can prove</h3><p class="mut">Both partners agree on roles and credit before work starts, and the agreement is recorded.</p></div>
+  <div class="panel"><h3>Paid help, held safely</h3><p class="mut">Need testing, review or marketing? Payment is held until you confirm the work is delivered.</p></div>
  </div>
  <div style="text-align:center;margin-top:90px"><h1 style="font-size:clamp(32px,5vw,52px)">Find Your Match Now!</h1><a class="btn" href="#signup">Match now</a></div>
 </section>
@@ -131,7 +111,7 @@
 <!-- MESSAGES -->
 <section data-v="messages" class="wrap"><div class="chat">
  <div class="panel list" id="clist"></div>
- <div class="panel th"><div id="thead" class="send" style="border:0;border-bottom:1px solid var(--line);align-items:center"></div><div class="msgs" id="msgs"></div>
+ <div class="panel th"><div id="thead" class="send" style="border:0;border-bottom:1px solid var(--line);align-items:center"></div><div id="agree"></div><div class="msgs" id="msgs"></div>
   <div class="send"><input class="field" id="mi" placeholder="Write a message" aria-label="Message"><button class="btn" id="ms" style="padding:10px 22px">Send</button></div></div>
 </div></section>
 </main>
@@ -141,7 +121,7 @@
  <div class="fl"><a href="#home">Home</a><a href="#landing">About Us</a><a href="#discover">Discover</a><a href="#messages">Messages</a></div>
  <div class="mut">© 2026 CoreMatch</div>
 </footer>
-    <script src="js/app.js"></script>
-    
+
+<script src="js/app.js"></script>
 </body>
 </html>
