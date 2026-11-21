@@ -36,9 +36,10 @@ function render(keepFocus){
  $('#meter').style.width=pts*25+'%';
  $('#mtxt').textContent=pts===4?'Your profile is complete.':'Add '+[!me.name&&'your name',!me.v&&'a project vision',!me.br.length&&'skills you bring',!me.nd.length&&'skills you need'].filter(Boolean).join(', ')+' to get better matches.';
  $('#ideas').innerHTML=B.slice(0,4).map(b=>`<article class="card"><b>${b.v}</b><div class="mut" style="font-size:14px">by ${b.n} in ${b.c}</div><div class="tags"><span class="mut" style="font-size:14px">Looking for</span>${tg(b.nd,'t-n')}</div><button class="btn ghost" data-chat="${b.id}">Message ${b.n.split(' ')[0]}</button></article>`).join('');
- $('#navav').textContent=ini(me.name);
+ avs();
 }
 function chips(el,key,cls){el.innerHTML=TAGS.map(t=>`<button class="pill sel ${me[key].includes(t)?cls:''}" data-t="${t}" data-k="${key}" data-c="${cls}">${t}</button>`).join('')}
+function avs(){for(const el of [$('#navav'),$('#p-prev')]){el.textContent=me.pic?'':ini(me.name);el.style.backgroundImage=me.pic?`url("${me.pic}")`:''}}
 function setup(){const s=$('#p-city');s.innerHTML=CITIES.map(c=>`<option ${c===me.city?'selected':''}>${c}</option>`).join('');$('#p-name').value=me.name;$('#p-v').value=me.v;chips($('#p-b'),'br','b');chips($('#p-n'),'nd','n')}
 function agree(b){const paid=b.k==='paid',a=ag[cur]||0,S=paid?['Offer sent','Payment held safely','Work delivered','Payment released']:['Draft agreement','You agreed','Both agreed, credit recorded'],T=paid?['Fund payment','Confirm delivery','Release payment']:['Agree to credit terms'],done=a>=S.length-1,wait=!paid&&a===1;
 $('#agree').innerHTML=`<div class="ag"><b>${paid?'Paid job, '+b.pr:'Free collaboration, shared credit'}</b><p class="mut">${paid?'Payment is held and only released after you confirm the work. Prototype only: no real money moves.':'Both names appear on the project page and README. Neither partner may publish or launch it without crediting the other. Prototype only: nothing is stored yet.'}</p><div>${S.map((x,i)=>`<span class="st ${i<=a?'done':''}">${x}</span>`).join('')}</div>${done?'<span class="lnk">Complete and recorded</span>':wait?'<span class="mut">Waiting for your partner to agree...</span>':`<button class="btn" data-ag="1">${T[a]}</button>`}</div>`}
@@ -53,6 +54,7 @@ function send(){const i=$('#mi'),t=i.value.trim();if(!t||!cur)return;const id=cu
 document.addEventListener('click',e=>{
  const f=e.target.closest('[data-f]'),c=e.target.closest('[data-chat]'),t=e.target.closest('[data-t]'),o=e.target.closest('[data-open]'),dc=e.target.closest('[data-dc]'),ds=e.target.closest('[data-ds]');
  if(dc){dcity=dc.dataset.dc;anim=true;render();anim=false}
+ const k=e.target.closest('a[href^="#"]');if(k&&location.hash.length>1&&k.getAttribute('href')===location.hash){e.preventDefault();scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})}
  const g=e.target.closest('[data-ag]');if(g&&cur){const id=cur;ag[id]=(ag[id]||0)+1;msgs();if(B.find(x=>x.id===id).k!=='paid'&&ag[id]===1)setTimeout(()=>{ag[id]=2;if(cur===id)msgs()},1000)}
  if(ds){dskill=ds.dataset.ds==='Any skill'?'':ds.dataset.ds;anim=true;render();anim=false}
  if(f){fil=f.dataset.f;render(true)}
@@ -63,12 +65,14 @@ document.addEventListener('click',e=>{
 document.addEventListener('input',e=>{if(e.target.matches('[data-q]')){q=e.target.value;render(true)}});
 $('#su-go').onclick=()=>{me.name=$('#su-name').value.trim();location.hash='setup'};
 $('#p-save').onclick=()=>{me.name=$('#p-name').value.trim();me.city=$('#p-city').value;me.v=$('#p-v').value.trim();render();location.hash='home'};
+$('#p-pic').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{me.pic=r.result;avs()};r.readAsDataURL(f)};
+$('#navsearch').onclick=()=>{if(location.hash!=='#home')location.hash='home';setTimeout(()=>{const i=$('[data-q]');if(i){i.focus();i.scrollIntoView({block:'center'})}},80)};
 $('#dsort').onchange=e=>{dsort=e.target.value;anim=true;render();anim=false};$('#ms').onclick=send;$('#mi').addEventListener('keydown',e=>{if(e.key==='Enter')send()});
 function route(){
  let h=location.hash.slice(1)||'loading';if(!$(`[data-v="${h}"]`))h='landing';
  $$('[data-v]').forEach(v=>v.hidden=v.dataset.v!==h);
  const bare=['loading','login','signup'].includes(h);$('nav').hidden=bare;$('footer').hidden=bare;
- $$('nav .links a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+h));
+ $$('nav .links a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+h));$('#navav').classList.toggle('on',h==='setup');
  if(h==='setup')setup();if(h==='messages')msgs();const sv=$(`[data-v="${h}"]`);sv.classList.remove('enter');void sv.offsetWidth;sv.classList.add('enter');anim=true;render();anim=false;scrollTo(0,0);
  if(h==='loading')setTimeout(()=>{if(!location.hash||location.hash==='#loading')location.hash='landing'},1800)}
 $$('img[data-logo]').forEach(i=>i.src=LOGO);$('img[data-hero]').src=HERO;
