@@ -29,11 +29,11 @@ I am a 2nd-year Software Engineering student. I built CoreMatch to learn full-st
 
 | Landing | Home |
 |---|---|
-| ![Landing](docs/screenshots/landing.png) | ![Home](docs/screenshots/home.png) |
+| ![Landing](docs/docs/screenshots/landing.png) | ![Home](docs/docs/screenshots/home.png) |
 
 | Discover | Messages |
 |---|---|
-| ![Discover](docs/screenshots/discover.png) | ![Messages](docs/screenshots/messages.png) |
+| ![Discover](docs/docs/screenshots/discover.png) | ![Messages](docs/docs/screenshots/messages.png) |
 
 The full flow has 8 screens: Loading, Landing, Log in, Create account, Profile setup, Home, Discover and Messages.
 
