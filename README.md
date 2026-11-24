@@ -12,8 +12,6 @@ Find your technical co-founder. CoreMatch connects developers, designers and AI 
 [![License: MIT](https://img.shields.io/badge/License-MIT-D4890F?style=for-the-badge)](LICENSE)
 ![Status](https://img.shields.io/badge/Status-Frontend%20prototype-0B0F17?style=for-the-badge)
 
-<!-- Add a banner screenshot: docs/screenshots/banner.png -->
-![CoreMatch banner](docs/screenshots/banner.png)
 
 </div>
 
