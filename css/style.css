@@ -89,6 +89,7 @@ footer .fl{display:grid;grid-template-columns:repeat(2,auto);gap:4px 28px}
 .meter{height:8px;border-radius:8px;background:#1F2937;overflow:hidden;margin:14px 0}.meter i{display:block;height:100%;width:0;background:var(--mint);transition:width .6s}
 .near{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #1F2937}
 .cta{text-align:center;margin-top:44px}
+#res,#all{scroll-margin-top:90px}
 .av{background-size:cover;background-position:center}#navav{background-color:var(--mint);width:40px;height:40px}.av.on{outline:2px solid #fff;outline-offset:2px}
 .ib{background:none;border:0;padding:6px;cursor:pointer;display:grid;place-items:center;border-radius:50%}.ib:hover{background:#1F2937}.ib svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
 .kind{font-size:13px;border-radius:999px;padding:2px 10px;align-self:flex-start}.kind.free{background:rgba(16,185,129,.18);color:#6EE7B7}.kind.paid{background:rgba(212,137,15,.2);color:#F5B44A}

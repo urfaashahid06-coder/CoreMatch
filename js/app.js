@@ -17,16 +17,21 @@ let fil='All Builders',q='',cur=null,anim=false,dcity='All cities',dskill='',dso
 const col=id=>id%2?'var(--mint)':'var(--amber)';
 const ini=n=>(n||'Y').trim()[0].toUpperCase();
 const score=b=>Math.min(99,40+16*(b.br.filter(t=>me.nd.includes(t)).length+b.nd.filter(t=>me.br.includes(t)).length)+(b.c===me.city?12:0));
-function list(){return B.filter(b=>fil==='All Builders'||(fil==='Same City'?b.c===me.city:fil==='Free Collabs'?b.k==='collab':b.k==='paid')).filter(b=>(b.n+b.v+b.br+b.nd+b.c).toLowerCase().includes(q.toLowerCase())).sort((a,b)=>score(b)-score(a))}
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const match=b=>(b.n+' '+b.cat+' '+b.v+' '+b.br+' '+b.nd+' '+b.c+' '+(b.k==='paid'?'paid':'free collab')).toLowerCase().includes(q.trim().toLowerCase());
+function list(){return B.filter(b=>fil==='All Builders'||(fil==='Same City'?b.c===me.city:fil==='Free Collabs'?b.k==='collab':b.k==='paid')).filter(match).sort((a,b)=>score(b)-score(a))}
 const tg=(a,c)=>a.map(t=>`<span class="pill ${c}">${t}</span>`).join('');
 const card=(b,i=0)=>`<article class="card${anim?' in':''}" style="--i:${i}"><div class="top"><div class="av" style="background:${col(b.id)};width:56px;height:56px">${ini(b.n)}</div><div class="meta"><span class="city">${b.c}</span><span class="match">${score(b)}% Match</span></div></div><div><b>${b.n}</b><div class="mut" style="font-size:14px">${b.cat}</div></div><span class="kind ${b.k==='paid'?'paid':'free'}">${b.k==='paid'?'Paid: '+b.pr:'Free collab, credit shared'}</span><div class="q">“${b.v}”</div><div class="tags">${tg(b.br,'t-b')}${tg(b.nd,'t-n')}</div><button class="btn" data-chat="${b.id}">${b.k==='paid'?'Discuss this job':'Connect &amp; Build'}</button></article>`;
-const bar=()=>`<div class="filters"><input data-q placeholder="Search builders, skills or cities" value="${q.replace(/"/g,'&quot;')}" aria-label="Search">${FIL.map(f=>`<button class="pill ${f===fil?'on':''}" data-f="${f}">${f}</button>`).join('')}</div>`;
+const bar=()=>`<div class="filters"><input data-q placeholder="Search builders, skills or cities" value="${esc(q)}" aria-label="Search">${FIL.map(f=>`<button class="pill ${f===fil?'on':''}" data-f="${f}">${f}</button>`).join('')}</div>`;
 function render(keepFocus){
+ $$('[data-q]').forEach(i=>{if(document.activeElement!==i&&i.value!==q)i.value=q});
  $$('[data-bar]').forEach(e=>{if(!e.firstChild||!keepFocus)e.innerHTML=bar();else $$('[data-f]',e).forEach(p=>p.classList.toggle('on',p.dataset.f===fil))});
- const L=list();
+ const L=list(),sq=q.trim();
+ $('#res').hidden=!sq;$('#homemain').hidden=!!sq;
+ if(sq){$('#rt').textContent=L.length?'Results for “'+sq+'” ('+L.length+')':'';$('#resg').innerHTML=L.length?L.map(card).join(''):`<div class="panel" style="grid-column:1/-1;text-align:center"><b>No builders found for “${esc(sq)}”</b><p class="mut">Try a skill like React or Marketing, a city like Lahore, or clear the search.</p><button class="btn ghost" data-clear="1">Clear search</button></div>`}
  $('#top').innerHTML=L.slice(0,3).map(card).join('')||'<p class="mut">No builders match. Clear the search or pick another filter.</p>';
- const D=B.filter(b=>(dcity==='All cities'||b.c===dcity)&&(!dskill||b.br.includes(dskill))).sort((a,b)=>dsort==='name'?a.n.localeCompare(b.n):dsort==='city'?a.c.localeCompare(b.c):score(b)-score(a));
- $('#all').innerHTML=D.map(card).join('')||'<p class="mut">No builders match. Try another city or skill.</p>';
+ const D=B.filter(b=>(dcity==='All cities'||b.c===dcity)&&(!dskill||b.br.includes(dskill))&&match(b)).sort((a,b)=>dsort==='name'?a.n.localeCompare(b.n):dsort==='city'?a.c.localeCompare(b.c):score(b)-score(a));
+ $('#all').innerHTML=D.map(card).join('')||'<p class="mut">No builders found. Try another search, city or skill.</p>';
  $('#dcount').textContent=D.length+(D.length===1?' builder found':' builders found');
  $('#dcity').innerHTML=['All cities',...CITIES].map(c=>`<button class="pill ${c===dcity?'on':''}" data-dc="${c}">${c}</button>`).join('');
  $('#dskill').innerHTML=['Any skill',...TAGS].map(t=>`<button class="pill ${(t==='Any skill'?!dskill:t===dskill)?'on':''}" data-ds="${t}">${t}</button>`).join('');
@@ -54,6 +59,7 @@ function send(){const i=$('#mi'),t=i.value.trim();if(!t||!cur)return;const id=cu
 document.addEventListener('click',e=>{
  const f=e.target.closest('[data-f]'),c=e.target.closest('[data-chat]'),t=e.target.closest('[data-t]'),o=e.target.closest('[data-open]'),dc=e.target.closest('[data-dc]'),ds=e.target.closest('[data-ds]');
  if(dc){dcity=dc.dataset.dc;anim=true;render();anim=false}
+ if(e.target.closest('[data-clear]')){q='';render()}
  const k=e.target.closest('a[href^="#"]');if(k&&location.hash.length>1&&k.getAttribute('href')===location.hash){e.preventDefault();scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})}
  const g=e.target.closest('[data-ag]');if(g&&cur){const id=cur;ag[id]=(ag[id]||0)+1;msgs();if(B.find(x=>x.id===id).k!=='paid'&&ag[id]===1)setTimeout(()=>{ag[id]=2;if(cur===id)msgs()},1000)}
  if(ds){dskill=ds.dataset.ds==='Any skill'?'':ds.dataset.ds;anim=true;render();anim=false}
@@ -66,7 +72,8 @@ document.addEventListener('input',e=>{if(e.target.matches('[data-q]')){q=e.targe
 $('#su-go').onclick=()=>{me.name=$('#su-name').value.trim();location.hash='setup'};
 $('#p-save').onclick=()=>{me.name=$('#p-name').value.trim();me.city=$('#p-city').value;me.v=$('#p-v').value.trim();render();location.hash='home'};
 $('#p-pic').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{me.pic=r.result;avs()};r.readAsDataURL(f)};
-$('#navsearch').onclick=()=>{if(location.hash!=='#home')location.hash='home';setTimeout(()=>{const i=$('[data-q]');if(i){i.focus();i.scrollIntoView({block:'center'})}},80)};
+$('#navsearch').onclick=()=>{if(location.hash!=='#home'&&location.hash!=='#discover')location.hash='home';setTimeout(()=>{const i=$$('[data-q]').find(x=>x.offsetParent);if(i){i.focus();i.scrollIntoView({block:'center'})}},80)};
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[data-q]')){e.preventDefault();q=e.target.value;render(true);const t=$('#res:not([hidden])')||$('#all');t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'})}});
 $('#dsort').onchange=e=>{dsort=e.target.value;anim=true;render();anim=false};$('#ms').onclick=send;$('#mi').addEventListener('keydown',e=>{if(e.key==='Enter')send()});
 function route(){
  let h=location.hash.slice(1)||'loading';if(!$(`[data-v="${h}"]`))h='landing';

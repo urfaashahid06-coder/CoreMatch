@@ -92,6 +92,8 @@
 <!-- HOME -->
 <section data-v="home" class="wrap">
  <div data-bar></div>
+ <div id="res" hidden><h2 id="rt"></h2><div class="grid" id="resg"></div></div>
+ <div id="homemain">
  <h2>Top Matches For You</h2><div class="grid" id="top"></div>
  <h2 style="margin-top:44px">Open Project Ideas</h2><div class="grid" id="ideas"></div>
  <div class="two" style="margin-top:44px;align-items:start">
@@ -99,12 +101,14 @@
   <div class="panel"><h2 style="font-size:24px;margin-bottom:0">Your profile strength</h2><div class="meter"><i id="meter"></i></div><p class="mut" id="mtxt" style="margin:0 0 18px"></p><a class="btn ghost" href="#setup">Improve profile</a></div>
  </div>
  <div class="panel cta"><h2>Have a project idea? Tell builders what you need.</h2><p class="mut" style="margin-top:-8px">Add your vision and Needs tags so the right people can find you.</p><a class="btn" href="#setup">Update my project vision</a></div>
+ </div>
 </section>
 
 <!-- DISCOVER -->
 <section data-v="discover" class="wrap">
  <div class="dh"><div><h2>Explore Builders Across Pakistan</h2><p class="mut" id="dcount" style="margin:6px 0 0"></p></div>
   <label class="mut">Sort by<select class="sort" id="dsort"><option value="match">Best match</option><option value="name">Name</option><option value="city">City</option></select></label></div>
+ <div class="filters" style="margin-bottom:14px"><input data-q placeholder="Search builders, skills or cities" aria-label="Search"></div>
  <div class="tags" id="dcity" style="margin-bottom:12px"></div>
  <div class="tags" id="dskill" style="margin-bottom:28px"></div>
  <div class="grid" id="all"></div>
