@@ -8,7 +8,7 @@
 
 Find your technical co-founder. CoreMatch connects developers, designers and AI builders across Pakistan by the skills they bring and the skills they need.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-open-10B981?style=for-the-badge)](https://YOUR-VERCEL-LINK.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-open-10B981?style=for-the-badge)](https://corematch-lyart.vercel.app)
 [![License: MIT](https://img.shields.io/badge/License-MIT-D4890F?style=for-the-badge)](LICENSE)
 ![Status](https://img.shields.io/badge/Status-Frontend%20prototype-0B0F17?style=for-the-badge)
 
