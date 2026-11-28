@@ -79,8 +79,8 @@ function route(){
  let h=location.hash.slice(1)||'loading';if(!$(`[data-v="${h}"]`))h='landing';
  $$('[data-v]').forEach(v=>v.hidden=v.dataset.v!==h);
  const bare=['loading','login','signup'].includes(h);$('nav').hidden=bare;$('footer').hidden=bare;
- $$('nav .links a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+h));$('#navav').classList.toggle('on',h==='setup');
- if(h==='setup')setup();if(h==='messages')msgs();const sv=$(`[data-v="${h}"]`);sv.classList.remove('enter');void sv.offsetWidth;sv.classList.add('enter');anim=true;render();anim=false;scrollTo(0,0);
+ $$('nav .links a').forEach(a=>{const on=a.getAttribute('href')==='#'+h;a.classList.toggle('on',on);on?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current')});$('#navav').classList.toggle('on',h==='setup');
+ if(h==='setup')setup();if(h==='messages')msgs();const sv=$(`[data-v="${h}"]`);sv.classList.remove('enter');void sv.offsetWidth;sv.classList.add('enter');sv.tabIndex=-1;sv.focus({preventScroll:true});anim=true;render();anim=false;scrollTo(0,0);
  if(h==='loading')setTimeout(()=>{if(!location.hash||location.hash==='#loading')location.hash='landing'},1800)}
 $$('img[data-logo]').forEach(i=>i.src=LOGO);$('img[data-hero]').src=HERO;
 addEventListener('hashchange',route);route();
